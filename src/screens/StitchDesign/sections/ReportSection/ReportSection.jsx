@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../../components/ui/card";
 
-export const ReportSection = (): JSX.Element => {
+export const ReportSection = () => {
   const reportData = {
     dailySales: 2450.75,
     weeklyAverage: 2100.50,

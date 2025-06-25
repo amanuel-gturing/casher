@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "../../../../components/ui/table";
 
-export const SidebarSection = (): JSX.Element => {
+export const SidebarSection = () => {
   // Order data for the table
   const orders = [
     { id: "#12345", table: "Table 5", items: "2 items", total: "$25.00" },

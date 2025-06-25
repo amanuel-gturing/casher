@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../../components/ui/card";
 
-export const ShiftCheckoutSection = (): JSX.Element => {
+export const ShiftCheckoutSection = () => {
   const shiftData = {
     startTime: "08:00 AM",
     endTime: "04:00 PM",
