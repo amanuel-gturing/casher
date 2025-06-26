@@ -1,12 +1,12 @@
 {
   "version": "1.0.0",
-  "source": "./index.html",
-  "type": "module",
   "name": "casher",
   "description": "A React project using the Shadcn UI library",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "clsx": "2.1.1",
@@ -18,16 +18,10 @@
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "@radix-ui/react-avatar": "^1.1.1",
-    "@radix-ui/react-separator": "^1.1.0"
+    "@radix-ui/react-separator": "^1.1.0",
+    "react-scripts": "5.0.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "4.3.4",
-    "esbuild": "0.24.0",
-    "globals": "15.12.0",
-    "tailwindcss": "3.4.16",
-    "vite": "6.0.4"
-  },
-  "alias": {
-    "@/*": "./src/components/ui/$1"
+    "tailwindcss": "3.4.16"
   }
 }

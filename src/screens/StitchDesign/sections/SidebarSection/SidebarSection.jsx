@@ -69,10 +69,10 @@ export const SidebarSection = () => {
 
   // State to manage orders and button click state
   const [orders, setOrders] = useState(initialOrders);
-  const [clickedIndex, setClickedIndex] = useState<number | null>(null);
+  const [clickedIndex, setClickedIndex] = useState(null);
 
   // Handle Print Receipt click
-  const handlePrintReceipt = (index: number, paymentOption: string) => {
+  const handlePrintReceipt = (index, paymentOption) => {
     setClickedIndex(index);
     setTimeout(() => {
       setClickedIndex(null);
