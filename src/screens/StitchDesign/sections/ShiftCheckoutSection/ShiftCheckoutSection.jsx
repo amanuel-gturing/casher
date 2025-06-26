@@ -24,6 +24,18 @@ export const ShiftCheckoutSection = () => {
   const [showZReport, setShowZReport] = useState(false);
   const [dayClosed, setDayClosed] = useState(false);
 
+  const waiterSales = [
+    { name: "John Smith", total: 250.5 },
+    { name: "Sarah Johnson", total: 180.75 },
+    { name: "Mike Davis", total: 320.4 },
+  ];
+
+  const productSales = [
+    { type: "Beverages", amount: 500.25 },
+    { type: "Main Dishes", amount: 600.5 },
+    { type: "Desserts", amount: 150.0 },
+  ];
+
   const zReportItems = [
     ...summaryItems,
     { label: "Tips", value: `$${shiftData.tips.toFixed(2)}`, color: "text-gray-600" },
@@ -44,6 +56,24 @@ export const ShiftCheckoutSection = () => {
                 </div>
               ))}
             </div>
+            <div className="space-y-2 pt-2">
+              <h4 className="font-medium [font-family:'Work_Sans',Helvetica]">Waiter Sales</h4>
+              {waiterSales.map((w) => (
+                <div key={w.name} className="flex justify-between">
+                  <span className="[font-family:'Work_Sans',Helvetica]">{w.name}</span>
+                  <span className="[font-family:'Work_Sans',Helvetica]">${w.total.toFixed(2)}</span>
+                </div>
+              ))}
+            </div>
+            <div className="space-y-2 pt-2">
+              <h4 className="font-medium [font-family:'Work_Sans',Helvetica]">Products Sold</h4>
+              {productSales.map((p) => (
+                <div key={p.type} className="flex justify-between">
+                  <span className="[font-family:'Work_Sans',Helvetica]">{p.type}</span>
+                  <span className="[font-family:'Work_Sans',Helvetica]">${p.amount.toFixed(2)}</span>
+                </div>
+              ))}
+            </div>
             <Button className="w-full" onClick={() => setShowZReport(false)}>
               Close
             </Button>
@@ -60,13 +90,8 @@ export const ShiftCheckoutSection = () => {
         </p>
       </div>
 
-      {dayClosed ? (
-        <div className="px-4 py-3 w-full text-center [font-family:'Work_Sans',Helvetica]">
-          Day's report closed.
-        </div>
-      ) : (
-        <div className="px-4 py-3 w-full space-y-6">
-          {/* Summary Cards */}
+      <div className="px-4 py-3 w-full space-y-6">
+        {!dayClosed && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {summaryItems.map((item, index) => (
               <Card key={index} className="border border-solid border-[#e2dddd] rounded-xl">
@@ -83,25 +108,30 @@ export const ShiftCheckoutSection = () => {
               </Card>
             ))}
           </div>
+        )}
 
-          {/* Action Buttons */}
-          <div className="flex gap-4 justify-end">
-            <Button
-              variant="outline"
-              className="px-6 py-2 [font-family:'Work_Sans',Helvetica] font-medium"
-              onClick={() => setShowZReport(true)}
-            >
-              Print Summary
-            </Button>
+        {dayClosed && (
+          <div className="text-center [font-family:'Work_Sans',Helvetica]">Day's report closed.</div>
+        )}
+
+        <div className="flex gap-4 justify-end">
+          <Button
+            variant="outline"
+            className="px-6 py-2 [font-family:'Work_Sans',Helvetica] font-medium"
+            onClick={() => setShowZReport(true)}
+          >
+            Print Summary
+          </Button>
+          {!dayClosed && (
             <Button
               className="px-6 py-2 bg-[#161111] text-white hover:bg-[#2a2a2a] [font-family:'Work_Sans',Helvetica] font-medium"
               onClick={() => setDayClosed(true)}
             >
               Complete Checkout
             </Button>
-          </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
