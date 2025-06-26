@@ -12,12 +12,7 @@ import {
 } from "../../../../components/ui/avatar";
 import { Button } from "../../../../components/ui/button";
 
-interface OrdersSectionProps {
-  activeSection: string;
-  onSectionChange: (section: string) => void;
-}
-
-export const OrdersSection = ({ activeSection, onSectionChange }: OrdersSectionProps): JSX.Element => {
+export const OrdersSection = ({ activeSection, onSectionChange }) => {
   // Navigation menu items data
   const menuItems = [
     {

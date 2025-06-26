@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "../../../../components/ui/table";
 
-export const SidebarSection = (): JSX.Element => {
+export const SidebarSection = () => {
   // Initial order data for the table with detailed items
   const initialOrders = [
     { 

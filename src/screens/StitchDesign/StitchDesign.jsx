@@ -6,7 +6,7 @@ import { WaitersSection } from "./sections/WaitersSection";
 import { ShiftCheckoutSection } from "./sections/ShiftCheckoutSection";
 import { ReportSection } from "./sections/ReportSection";
 
-export const StitchDesign = (): JSX.Element => {
+export const StitchDesign = () => {
   const [activeSection, setActiveSection] = useState("orders");
 
   const renderMainContent = () => {

@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "../../../../components/ui/table";
 
-export const WaitersSection = (): JSX.Element => {
+export const WaitersSection = () => {
   // Waiters data for the table with unsettled accounts
   const waiters = [
     { id: "W001", name: "John Smith", unsettledTables: "Table 3, Table 7", amount: "$125.50", orders: 12 },
