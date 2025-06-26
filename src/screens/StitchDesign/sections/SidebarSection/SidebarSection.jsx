@@ -13,56 +13,51 @@ import {
 export const SidebarSection = () => {
   // Initial order data for the table with detailed items
   const initialOrders = [
-    { 
-      waiterId: "#W12345", 
-      table: "Table 5", 
+    {
+      waiterId: "#W12345",
+      table: "Table 5",
       items: [
         { name: "Cappuccino", quantity: 1, price: "$4.50" },
         { name: "Croissant", quantity: 1, price: "$3.50" }
-      ], 
-      total: "$25.00",
+      ],
       paymentOption: "Online"
     },
-    { 
-      waiterId: "#W12346", 
-      table: "Table 2", 
+    {
+      waiterId: "#W12346",
+      table: "Table 2",
       items: [
         { name: "Espresso", quantity: 2, price: "$3.00" },
         { name: "Latte", quantity: 1, price: "$4.00" },
         { name: "Chocolate Cake", quantity: 1, price: "$6.00" }
-      ], 
-      total: "$35.00",
+      ],
       paymentOption: "Cash"
     },
-    { 
-      waiterId: "#W12347", 
-      table: "Table 8", 
+    {
+      waiterId: "#W12347",
+      table: "Table 8",
       items: [
         { name: "Americano", quantity: 1, price: "$3.50" }
-      ], 
-      total: "$15.00",
+      ],
       paymentOption: "Online"
     },
-    { 
-      waiterId: "#W12348", 
-      table: "Table 3", 
+    {
+      waiterId: "#W12348",
+      table: "Table 3",
       items: [
         { name: "Mocha", quantity: 2, price: "$5.00" },
         { name: "Blueberry Muffin", quantity: 1, price: "$4.50" },
         { name: "Tea", quantity: 1, price: "$3.00" },
         { name: "Sandwich", quantity: 1, price: "$8.50" }
-      ], 
-      total: "$45.00",
+      ],
       paymentOption: "Cash"
     },
-    { 
-      waiterId: "#W12349", 
-      table: "Table 1", 
+    {
+      waiterId: "#W12349",
+      table: "Table 1",
       items: [
         { name: "Cappuccino", quantity: 1, price: "$4.50" },
         { name: "Danish Pastry", quantity: 1, price: "$4.00" }
-      ], 
-      total: "$20.00",
+      ],
       paymentOption: "Online"
     },
   ];
@@ -70,6 +65,16 @@ export const SidebarSection = () => {
   // State to manage orders and button click state
   const [orders, setOrders] = useState(initialOrders);
   const [clickedIndex, setClickedIndex] = useState(null);
+
+  // Calculate the total amount for an order based on its items
+  const calculateTotal = (items) => {
+    return items
+      .reduce((sum, item) => {
+        const price = parseFloat(item.price.replace(/[^0-9.-]+/g, ""));
+        return sum + item.quantity * price;
+      }, 0)
+      .toFixed(2);
+  };
 
   // Handle Print Receipt click
   const handlePrintReceipt = (index, paymentOption) => {
@@ -137,7 +142,7 @@ export const SidebarSection = () => {
                       </ul>
                     </TableCell>
                     <TableCell className="px-4 py-3 [font-family:'Work_Sans',Helvetica] font-normal text-[#82686b] text-sm align-top">
-                      {order.total}
+                      {`$${calculateTotal(order.items)}`}
                     </TableCell>
                     <TableCell className="px-4 py-3 [font-family:'Work_Sans',Helvetica] font-normal text-[#82686b] text-xl align-top">
                       <span className={`px-4 py-2 rounded-full text-sm font-medium ${
