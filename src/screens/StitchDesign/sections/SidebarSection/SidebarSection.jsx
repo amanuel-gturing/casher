@@ -14,7 +14,8 @@ export const SidebarSection = () => {
   // Initial order data for the table with detailed items
   const initialOrders = [
     {
-      waiterId: "#W12345",
+      waiterId: "W001",
+      waiterName: "John Smith",
       table: "Table 5",
       items: [
         { name: "Cappuccino", quantity: 1, price: "$4.50" },
@@ -23,7 +24,8 @@ export const SidebarSection = () => {
       paymentOption: "Online"
     },
     {
-      waiterId: "#W12346",
+      waiterId: "W002",
+      waiterName: "Sarah Johnson",
       table: "Table 2",
       items: [
         { name: "Espresso", quantity: 2, price: "$3.00" },
@@ -33,7 +35,8 @@ export const SidebarSection = () => {
       paymentOption: "Cash"
     },
     {
-      waiterId: "#W12347",
+      waiterId: "W003",
+      waiterName: "Mike Davis",
       table: "Table 8",
       items: [
         { name: "Americano", quantity: 1, price: "$3.50" }
@@ -41,7 +44,8 @@ export const SidebarSection = () => {
       paymentOption: "Online"
     },
     {
-      waiterId: "#W12348",
+      waiterId: "W004",
+      waiterName: "Emma Wilson",
       table: "Table 3",
       items: [
         { name: "Mocha", quantity: 2, price: "$5.00" },
@@ -52,7 +56,8 @@ export const SidebarSection = () => {
       paymentOption: "Cash"
     },
     {
-      waiterId: "#W12349",
+      waiterId: "W005",
+      waiterName: "Alex Brown",
       table: "Table 1",
       items: [
         { name: "Cappuccino", quantity: 1, price: "$4.50" },
@@ -99,8 +104,8 @@ export const SidebarSection = () => {
             <Table>
               <TableHeader>
                 <TableRow className="bg-white">
-                  <TableHead className="w-[120px] px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#161111] text-sm">
-                    Waiter ID
+                  <TableHead className="w-[160px] px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#161111] text-sm">
+                    Waiter
                   </TableHead>
                   <TableHead className="w-[100px] px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#161111] text-sm">
                     Table
@@ -126,7 +131,7 @@ export const SidebarSection = () => {
                     className="border-t border-[#e5e8ea]"
                   >
                     <TableCell className="px-4 py-3 [font-family:'Work_Sans',Helvetica] font-normal text-[#161111] text-sm align-top">
-                      {order.waiterId}
+                      {order.waiterName}
                     </TableCell>
                     <TableCell className="px-4 py-3 [font-family:'Work_Sans',Helvetica] font-normal text-[#82686b] text-sm align-top">
                       {order.table}
