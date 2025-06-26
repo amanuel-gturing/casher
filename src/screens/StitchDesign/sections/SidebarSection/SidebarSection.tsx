@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 import {
@@ -11,14 +11,74 @@ import {
 } from "../../../../components/ui/table";
 
 export const SidebarSection = (): JSX.Element => {
-  // Order data for the table
-  const orders = [
-    { id: "#12345", table: "Table 5", items: "2 items", total: "$25.00" },
-    { id: "#12346", table: "Table 2", items: "3 items", total: "$35.00" },
-    { id: "#12347", table: "Table 8", items: "1 item", total: "$15.00" },
-    { id: "#12348", table: "Table 3", items: "4 items", total: "$45.00" },
-    { id: "#12349", table: "Table 1", items: "2 items", total: "$20.00" },
+  // Initial order data for the table with detailed items
+  const initialOrders = [
+    { 
+      waiterId: "#W12345", 
+      table: "Table 5", 
+      items: [
+        { name: "Cappuccino", quantity: 1, price: "$4.50" },
+        { name: "Croissant", quantity: 1, price: "$3.50" }
+      ], 
+      total: "$25.00",
+      paymentOption: "Online"
+    },
+    { 
+      waiterId: "#W12346", 
+      table: "Table 2", 
+      items: [
+        { name: "Espresso", quantity: 2, price: "$3.00" },
+        { name: "Latte", quantity: 1, price: "$4.00" },
+        { name: "Chocolate Cake", quantity: 1, price: "$6.00" }
+      ], 
+      total: "$35.00",
+      paymentOption: "Cash"
+    },
+    { 
+      waiterId: "#W12347", 
+      table: "Table 8", 
+      items: [
+        { name: "Americano", quantity: 1, price: "$3.50" }
+      ], 
+      total: "$15.00",
+      paymentOption: "Online"
+    },
+    { 
+      waiterId: "#W12348", 
+      table: "Table 3", 
+      items: [
+        { name: "Mocha", quantity: 2, price: "$5.00" },
+        { name: "Blueberry Muffin", quantity: 1, price: "$4.50" },
+        { name: "Tea", quantity: 1, price: "$3.00" },
+        { name: "Sandwich", quantity: 1, price: "$8.50" }
+      ], 
+      total: "$45.00",
+      paymentOption: "Cash"
+    },
+    { 
+      waiterId: "#W12349", 
+      table: "Table 1", 
+      items: [
+        { name: "Cappuccino", quantity: 1, price: "$4.50" },
+        { name: "Danish Pastry", quantity: 1, price: "$4.00" }
+      ], 
+      total: "$20.00",
+      paymentOption: "Online"
+    },
   ];
+
+  // State to manage orders and button click state
+  const [orders, setOrders] = useState(initialOrders);
+  const [clickedIndex, setClickedIndex] = useState<number | null>(null);
+
+  // Handle Print Receipt click
+  const handlePrintReceipt = (index: number, paymentOption: string) => {
+    setClickedIndex(index);
+    setTimeout(() => {
+      setClickedIndex(null);
+      setOrders((prev) => prev.filter((_, i) => i !== index));
+    }, 300); // Button color change duration
+  };
 
   return (
     <div className="max-w-[960px] flex-1 grow flex flex-col items-start">
@@ -34,17 +94,20 @@ export const SidebarSection = (): JSX.Element => {
             <Table>
               <TableHeader>
                 <TableRow className="bg-white">
-                  <TableHead className="w-[166px] px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#161111] text-sm">
-                    Order ID
+                  <TableHead className="w-[120px] px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#161111] text-sm">
+                    Waiter ID
                   </TableHead>
-                  <TableHead className="w-[158px] px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#161111] text-sm">
+                  <TableHead className="w-[100px] px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#161111] text-sm">
                     Table
                   </TableHead>
                   <TableHead className="w-40 px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#161111] text-sm">
                     Items
                   </TableHead>
-                  <TableHead className="w-[165px] px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#161111] text-sm">
+                  <TableHead className="w-[100px] px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#161111] text-sm">
                     Total
+                  </TableHead>
+                  <TableHead className="w-[120px] px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#161111] text-sm">
+                    Payment Option
                   </TableHead>
                   <TableHead className="w-32 px-4 py-3 [font-family:'Work_Sans',Helvetica] font-medium text-[#82686b] text-sm">
                     Actions
@@ -54,28 +117,48 @@ export const SidebarSection = (): JSX.Element => {
               <TableBody>
                 {orders.map((order, index) => (
                   <TableRow
-                    key={order.id}
-                    className="h-[72px] border-t border-[#e5e8ea]"
+                    key={order.waiterId}
+                    className="border-t border-[#e5e8ea]"
                   >
-                    <TableCell className="px-4 py-2 h-[72px] [font-family:'Work_Sans',Helvetica] font-normal text-[#161111] text-sm">
-                      {order.id}
+                    <TableCell className="px-4 py-3 [font-family:'Work_Sans',Helvetica] font-normal text-[#161111] text-sm align-top">
+                      {order.waiterId}
                     </TableCell>
-                    <TableCell className="px-4 py-2 h-[72px] [font-family:'Work_Sans',Helvetica] font-normal text-[#82686b] text-sm">
+                    <TableCell className="px-4 py-3 [font-family:'Work_Sans',Helvetica] font-normal text-[#82686b] text-sm align-top">
                       {order.table}
                     </TableCell>
-                    <TableCell className="px-4 py-2 h-[72px] [font-family:'Work_Sans',Helvetica] font-normal text-[#82686b] text-sm">
-                      {order.items}
+                    <TableCell className="px-4 py-3 [font-family:'Work_Sans',Helvetica] font-normal text-[#82686b] text-sm align-top">
+                      <ul className="space-y-1">
+                        {order.items.map((item, itemIndex) => (
+                          <li key={itemIndex} className="text-sm">
+                            <span className="font-medium">{item.quantity}x</span> {item.name}
+                            <span className="text-[#876363] ml-2">({item.price})</span>
+                          </li>
+                        ))}
+                      </ul>
                     </TableCell>
-                    <TableCell className="px-4 py-2 h-[72px] [font-family:'Work_Sans',Helvetica] font-normal text-[#82686b] text-sm">
+                    <TableCell className="px-4 py-3 [font-family:'Work_Sans',Helvetica] font-normal text-[#82686b] text-sm align-top">
                       {order.total}
                     </TableCell>
-                    <TableCell className="px-4 py-2 h-[72px]">
-                      <Button
-                        variant="ghost"
-                        className="p-0 h-auto [font-family:'Work_Sans',Helvetica] font-bold text-[#82686b] text-sm hover:bg-transparent"
+                    <TableCell className="px-4 py-3 [font-family:'Work_Sans',Helvetica] font-normal text-[#82686b] text-xl align-top">
+                      <span className={`px-4 py-2 rounded-full text-sm font-medium ${
+                        order.paymentOption === 'Online' 
+                          ? 'bg-blue-100 text-blue-800' 
+                          : 'bg-green-100 text-green-800'
+                      }`}>
+                        {order.paymentOption}
+                      </span>
+                    </TableCell>
+                    <TableCell className="px-4 py-3 align-top">
+                      <button
+                        className={`w-full rounded-lg px-4 py-2 font-bold text-sm transition-colors duration-200 [font-family:'Work_Sans',Helvetica] 
+                          ${clickedIndex === index
+                            ? 'bg-red-600 text-white'
+                            : 'bg-red-100 text-red-700 hover:bg-red-200'}
+                        `}
+                        onClick={() => handlePrintReceipt(index, order.paymentOption)}
                       >
                         Print Receipt
-                      </Button>
+                      </button>
                     </TableCell>
                   </TableRow>
                 ))}

@@ -18,9 +18,7 @@ export const ShiftCheckoutSection = (): JSX.Element => {
     { label: "Total Orders", value: shiftData.totalOrders.toString(), color: "text-blue-600" },
     { label: "Total Sales", value: `$${shiftData.totalSales.toFixed(2)}`, color: "text-green-600" },
     { label: "Cash Sales", value: `$${shiftData.cashSales.toFixed(2)}`, color: "text-gray-600" },
-    { label: "Card Sales", value: `$${shiftData.cardSales.toFixed(2)}`, color: "text-gray-600" },
-    { label: "Tips Collected", value: `$${shiftData.tips.toFixed(2)}`, color: "text-purple-600" },
-    { label: "Refunds", value: `$${shiftData.refunds.toFixed(2)}`, color: "text-red-600" },
+    { label: "Online Payments", value: `$${shiftData.cardSales.toFixed(2)}`, color: "text-gray-600" },
   ];
 
   return (
