@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../../components/ui/card";
 
@@ -21,8 +21,36 @@ export const ShiftCheckoutSection = () => {
     { label: "Online Payments", value: `$${shiftData.cardSales.toFixed(2)}`, color: "text-gray-600" },
   ];
 
+  const [showZReport, setShowZReport] = useState(false);
+  const [dayClosed, setDayClosed] = useState(false);
+
+  const zReportItems = [
+    ...summaryItems,
+    { label: "Tips", value: `$${shiftData.tips.toFixed(2)}`, color: "text-gray-600" },
+    { label: "Refunds", value: `$${shiftData.refunds.toFixed(2)}`, color: "text-gray-600" },
+  ];
+
   return (
-    <div className="max-w-[960px] flex-1 grow flex flex-col items-start">
+    <div className="max-w-[960px] flex-1 grow flex flex-col items-start relative">
+      {showZReport && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-80 space-y-4">
+            <h3 className="text-lg font-semibold [font-family:'Work_Sans',Helvetica]">Z Report</h3>
+            <div className="space-y-2">
+              {zReportItems.map((item) => (
+                <div key={item.label} className="flex justify-between">
+                  <span className="font-medium [font-family:'Work_Sans',Helvetica]">{item.label}</span>
+                  <span className="[font-family:'Work_Sans',Helvetica]">{item.value}</span>
+                </div>
+              ))}
+            </div>
+            <Button className="w-full" onClick={() => setShowZReport(false)}>
+              Close
+            </Button>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col items-start pt-5 pb-3 px-4 w-full">
         <h2 className="font-bold text-[#161111] text-[22px] leading-7 [font-family:'Work_Sans',Helvetica]">
           Shift Checkout
@@ -32,85 +60,48 @@ export const ShiftCheckoutSection = () => {
         </p>
       </div>
 
-      <div className="px-4 py-3 w-full space-y-6">
-        {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {summaryItems.map((item, index) => (
-            <Card key={index} className="border border-solid border-[#e2dddd] rounded-xl">
-              <CardContent className="p-4">
-                <div className="flex flex-col space-y-2">
-                  <span className="text-sm text-[#82686b] [font-family:'Work_Sans',Helvetica]">
-                    {item.label}
-                  </span>
-                  <span className={`text-2xl font-bold [font-family:'Work_Sans',Helvetica] ${item.color}`}>
-                    {item.value}
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+      {dayClosed ? (
+        <div className="px-4 py-3 w-full text-center [font-family:'Work_Sans',Helvetica]">
+          Day's report closed.
         </div>
+      ) : (
+        <div className="px-4 py-3 w-full space-y-6">
+          {/* Summary Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {summaryItems.map((item, index) => (
+              <Card key={index} className="border border-solid border-[#e2dddd] rounded-xl">
+                <CardContent className="p-4">
+                  <div className="flex flex-col space-y-2">
+                    <span className="text-sm text-[#82686b] [font-family:'Work_Sans',Helvetica]">
+                      {item.label}
+                    </span>
+                    <span className={`text-2xl font-bold [font-family:'Work_Sans',Helvetica] ${item.color}`}>
+                      {item.value}
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-        {/* Cash Register Summary */}
-        <Card className="border border-solid border-[#e2dddd] rounded-xl">
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold text-[#161111] [font-family:'Work_Sans',Helvetica]">
-              Cash Register Summary
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-[#161111] [font-family:'Work_Sans',Helvetica]">
-                  Starting Cash
-                </label>
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <span className="text-lg font-semibold text-[#161111] [font-family:'Work_Sans',Helvetica]">
-                    $200.00
-                  </span>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-[#161111] [font-family:'Work_Sans',Helvetica]">
-                  Expected Cash
-                </label>
-                <div className="p-3 bg-gray-50 rounded-lg">
-                  <span className="text-lg font-semibold text-[#161111] [font-family:'Work_Sans',Helvetica]">
-                    $650.25
-                  </span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-[#161111] [font-family:'Work_Sans',Helvetica]">
-                Actual Cash Count
-              </label>
-              <input
-                type="number"
-                step="0.01"
-                placeholder="Enter actual cash amount"
-                className="w-full p-3 border border-[#e2dddd] rounded-lg [font-family:'Work_Sans',Helvetica]"
-              />
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Action Buttons */}
-        <div className="flex gap-4 justify-end">
-          <Button
-            variant="outline"
-            className="px-6 py-2 [font-family:'Work_Sans',Helvetica] font-medium"
-          >
-            Print Summary
-          </Button>
-          <Button
-            className="px-6 py-2 bg-[#161111] text-white hover:bg-[#2a2a2a] [font-family:'Work_Sans',Helvetica] font-medium"
-          >
-            Complete Checkout
-          </Button>
+          {/* Action Buttons */}
+          <div className="flex gap-4 justify-end">
+            <Button
+              variant="outline"
+              className="px-6 py-2 [font-family:'Work_Sans',Helvetica] font-medium"
+              onClick={() => setShowZReport(true)}
+            >
+              Print Summary
+            </Button>
+            <Button
+              className="px-6 py-2 bg-[#161111] text-white hover:bg-[#2a2a2a] [font-family:'Work_Sans',Helvetica] font-medium"
+              onClick={() => setDayClosed(true)}
+            >
+              Complete Checkout
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
